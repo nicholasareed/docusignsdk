@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "docusignsdk"
   gem.homepage = "http://github.com/nicholasareed/docusignsdk"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "DocuSign Ruby Gem"
+  gem.description = "DocuSign Ruby Gem"
   gem.email = "nicholas.a.reed@gmail.com"
   gem.authors = ["nicholas reed"]
   # dependencies defined in Gemfile
