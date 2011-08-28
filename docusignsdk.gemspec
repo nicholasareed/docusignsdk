@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "docusignsdk.gemspec",
     "lib/Credential.wsdl",
     "lib/docusign.rb",
     "lib/docusign/anchor_tab.rb",
