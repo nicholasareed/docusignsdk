@@ -22,8 +22,8 @@ module Docusign
         connection  = Docusign::APIServiceSoap.new
         
         # newly added by Nick for Heroku SSL
-        connection.verify_mode = OpenSSL::SSL::VERIFY_PEER 
-				connection.ca_file = '/usr/lib/ssl/certs/ca-certificates.crt'
+        connection.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_PEER 
+				connection.ssl_config.ca_file = '/usr/lib/ssl/certs/ca-certificates.crt'
         
         if options[:integrators_key]
           header = IntegratorsKeyAuthHeaderHandler.new(
@@ -52,8 +52,8 @@ module Docusign
         connection = Docusign::Credential::CredentialSoap.new
         
         # newly added by Nick for Heroku SSL
-        connection.verify_mode = OpenSSL::SSL::VERIFY_PEER 
-				connection.ca_file = '/usr/lib/ssl/certs/ca-certificates.crt'
+				connection.ssl_config.ca_file = '/usr/lib/ssl/certs/ca-certificates.crt'
+        connection.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_PEER 
         
         connection.endpoint_url = endpoint_url if endpoint_url
         
