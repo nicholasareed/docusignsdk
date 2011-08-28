@@ -21,7 +21,7 @@ module Docusign
         
         connection  = Docusign::APIServiceSoap.new
         
-        # newly added by Nick for Heroku SSL
+        # newly added by Nick for Heroku SSL 
         connection.verify_mode = OpenSSL::SSL::VERIFY_PEER 
 				connection.ca_file = '/usr/lib/ssl/certs/ca-certificates.crt'
         
