@@ -20,13 +20,7 @@ module Docusign
       def login(options={})
         
         connection  = Docusign::APIServiceSoap.new
-        
-        # newly added by Nick for Heroku SSL
-				#connection.options["protocol.http.ssl_config.verify_mode"] = nil
-				#connection.options["protocol.http.ssl_config.verify_mode"] = OpenSSL::SSL::VERIFY_PEER
-				#connection.options["protocol.http.ssl_config.ca_file"] = '/usr/lib/ssl/certs/ca-certificates.crt'
-				connection.options["protocol.http.ssl_config.verify_mode"] = Docusign::Config[:verify_mode]
-				connection.options["protocol.http.ssl_config.ca_file"] = Docusign::Config[:ca_file]
+        connection = configure_ssl(connection)
         
         if options[:integrators_key]
           header = IntegratorsKeyAuthHeaderHandler.new(
@@ -53,16 +47,17 @@ module Docusign
       def credentials(email, password, endpoint_url=nil)
         
         connection = Docusign::Credential::CredentialSoap.new
-        
-        # newly added by Nick for Heroku SSL
-				#connection.options["protocol.http.ssl_config.verify_mode"] = OpenSSL::SSL::VERIFY_PEER
-				#connection.options["protocol.http.ssl_config.ca_file"] = '/usr/lib/ssl/certs/ca-certificates.crt'
-				connection.options["protocol.http.ssl_config.verify_mode"] = Docusign::Config[:verify_mode]
-				connection.options["protocol.http.ssl_config.ca_file"] = Docusign::Config[:ca_file]
+        connection = configure_ssl(connection)
         
         connection.endpoint_url = endpoint_url if endpoint_url
         
         connection.login(:email => email, :password => password).loginResult        
+      end
+      
+      def configure_ssl(connection)
+        connection.options["protocol.http.ssl_config.verify_mode"] = Docusign::Config[:verify_mode] if Docusign::Config[:verify_mode]
+				connection.options["protocol.http.ssl_config.ca_file"] = Docusign::Config[:ca_file] if Docusign::Config[:ca_file]
+				connection
       end
     end
   end
